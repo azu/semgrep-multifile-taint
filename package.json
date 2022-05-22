@@ -1,0 +1,15 @@
+{
+  "name": "semgrep-multifile-taint",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild src/index.js --platform=node --bundle --outfile=out.js",
+    "test": "semgrep -c semgrep.yml out.js"
+  },
+  "author": "azu",
+  "license": "MIT",
+  "dependencies": {
+    "esbuild": "^0.14.39"
+  }
+}

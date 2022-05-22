@@ -1,0 +1,22 @@
+rules:
+  - id: tainted-eval
+    mode: taint
+    message: Avoid eval
+    pattern-sources:
+      - patterns:
+          - pattern: $EVENT
+          - pattern-inside: |
+              exports.handler = function ($EVENT, ...) {
+                ...
+              }
+    pattern-sinks:
+      - patterns:
+          - pattern: $CODE
+          - pattern-either:
+              - pattern: eval($CODE)
+              - pattern: Function(...,$CODE)
+              - pattern: new Function(...,$CODE)
+    severity: ERROR
+    languages:
+      - javascript
+      - typescript
